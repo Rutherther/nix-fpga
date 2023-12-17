@@ -184,7 +184,7 @@
 
         ise-fw = pkgs.stdenv.mkDerivation {
           name = "xilinx-jtag-fw";
-          phases = ["installPhase"];
+          phases = ["unpackPhase" "installPhase"];
           src = ./xilinx/ise/fw;
           installPhase = ''
             mkdir -p $out/share
