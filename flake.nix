@@ -58,7 +58,7 @@
         libusb-compat-0_1
         libuuid
         motif
-        motif3-compat
+        # motif3-compat
         xorg.libXcursor
         xorg.libXft
         xorg.libXmu
@@ -67,6 +67,17 @@
         xorg.libXrandr
         xorg.libSM
         xorg.libICE
+      ];
+
+      diamondTargetPkgs = pkgs: with pkgs; [
+        fontconfig
+        libgcc
+        glibc
+        stdenv.cc.cc.lib
+        xorg.libXext
+        xorg.libXft
+        xorg.libX11
+        xorg.libXrender
       ];
 
       quartusTargetPkgs = pkgs: with pkgs; [
@@ -100,6 +111,15 @@
 
     in {
       packages.${system} = {
+        diamond-shell = pkgs.buildFHSEnv {
+          multiPkgs = diamondTargetPkgs;
+          name = "diamond-shell";
+          multiArch = true;
+          runScript = pkgs.writeScript "quartus-shell" ''
+            export LD_LIBRARY_PATH=/lib:$LD_LIBRARY_PATH
+            exec bash
+          '';
+        };
         quartus-shell = pkgs.buildFHSEnv {
           targetPkgs = quartusTargetPkgs;
           name = "quartus-shell";
