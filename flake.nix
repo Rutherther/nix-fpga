@@ -118,7 +118,7 @@
             export PATH=$INSTALL_DIR/bin:$PATH
           fi
           export LD_LIBRARY_PATH=/lib:$LD_LIBRARY_PATH
-          exec bash -c "$@"
+          exec "$@"
         '';
       };
 
@@ -133,7 +133,7 @@
       ];
 
       wrappedQuestaScripts = map (x: pkgs.writeScriptBin x ''
-        exec ${questaFhsEnv}/bin/questasim-env ${x}
+        exec ${questaFhsEnv}/bin/questasim-env ${x} "$@"
       '') questaFiles;
 
     in {
