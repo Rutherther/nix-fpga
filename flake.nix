@@ -109,13 +109,40 @@
         bzip2.out
       ];
 
+      questaFhsEnv = pkgs.buildFHSEnv {
+        targetPkgs = quartusTargetPkgs;
+        name = "questasim-env";
+        runScript = pkgs.writeScript "questasim-env" ''
+          ${runScriptPrefix "questa" true}
+          if [[ ! -z $INSTALL_DIR ]]; then
+            export PATH=$INSTALL_DIR/bin:$PATH
+          fi
+          export LD_LIBRARY_PATH=/lib:$LD_LIBRARY_PATH
+          exec bash -c "$@"
+        '';
+      };
+
+      questaFiles = [
+        "crd2bin" "dumplog64" "flps_util" "hdloffice" "hm_entity" "jobspy" "mc2com"
+        "mc2perfanalyze" "mc2_util" "qhcvt" "qhdel" "qhdir" "qhgencomp" "qhlib" "qhmake" "qhmap"
+        "qhsim" "qrun" "qverilog" "qvhcom" "qvlcom" "qwave2vcd" "qwaveman" "qwaveutils"
+        "sccom" "scgenmod" "sdfcom" "sm_entity" "triage" "vcd2qwave" "vcd2wlf" "vcom" "vcover"
+        "vdbg" "vdel" "vdir" "vencrypt" "verror" "vgencomp" "vhencrypt" "vis" "visualizer"
+        "vlib" "vlog" "vmake" "vmap" "vopt" "vovl" "vrun"
+        "vsim" "wlf2log" "wlf2vcd" "wlfman" "wlfrecover" "xml2ucdb"
+      ];
+
+      wrappedQuestaScripts = map (x: pkgs.writeScriptBin x ''
+        exec ${questaFhsEnv}/bin/questasim-env ${x}
+      '') questaFiles;
+
     in {
       packages.${system} = {
         diamond-shell = pkgs.buildFHSEnv {
           multiPkgs = diamondTargetPkgs;
           name = "diamond-shell";
           multiArch = true;
-          runScript = pkgs.writeScript "quartus-shell" ''
+          runScript = pkgs.writeScript "diamond-shell" ''
             export LD_LIBRARY_PATH=/lib:$LD_LIBRARY_PATH
             exec bash
           '';
@@ -141,6 +168,16 @@
             export LD_LIBRARY_PATH=/lib:$LD_LIBRARY_PATH
             exec $INSTALL_DIR/quartus/bin/quartus
           '';
+        };
+
+        questa = pkgs.buildEnv {
+          name = "questa";
+          paths = wrappedQuestaScripts;
+
+          meta = {
+            description = "Environment containing QuestaSim/ModelSim executable files.";
+            mainProgram = "vsim";
+          };
         };
 
         quartus-udev-rules = pkgs.writeTextFile {
