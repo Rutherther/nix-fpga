@@ -172,7 +172,16 @@
 
         questa = pkgs.buildEnv {
           name = "questa";
-          paths = wrappedQuestaScripts;
+          paths = wrappedQuestaScripts ++ [
+            (pkgs.writeTextFile {
+              name = "modelsim.ini";
+              text = ''
+                Dummy ini
+                # For VUnit to find ModelSim.
+              '';
+              destination = "/modelsim.ini";
+            })
+          ];
 
           meta = {
             description = "Environment containing QuestaSim/ModelSim executable files.";
