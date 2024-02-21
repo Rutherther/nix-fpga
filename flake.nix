@@ -113,6 +113,7 @@
         targetPkgs = quartusTargetPkgs;
         name = "questasim-env";
         runScript = pkgs.writeScript "questasim-env" ''
+          #!/usr/bin/env bash
           ${runScriptPrefix "questa" true}
           if [[ ! -z $INSTALL_DIR ]]; then
             export PATH=$INSTALL_DIR/bin:$PATH
@@ -133,6 +134,7 @@
       ];
 
       wrappedQuestaScripts = map (x: pkgs.writeScriptBin x ''
+        #!/usr/bin/env bash
         exec ${questaFhsEnv}/bin/questasim-env ${x} "$@"
       '') questaFiles;
 
