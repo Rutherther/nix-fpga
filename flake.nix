@@ -96,10 +96,13 @@
         xorg.libXtst
         xorg.libXi
         xorg.libXft
+        xorg.xcbutil
         xorg.libxcb.out
         xorg.xcbutilrenderutil.out
         xorg.libXau
         xorg.libXdmcp
+        qt6.qtwayland
+        libsForQt5.qt5.qtwayland
         gtk2
         libelf
         expat
