@@ -1,7 +1,11 @@
-{ pkgs, myLib, ise-usb-driver, requireInstallDir ? false, ... }:
+{ pkgs, myLib, ise-fw, ise-usb-driver, requireInstallDir ? false, ... }:
 
 pkgs.buildFHSEnv {
-  targetPkgs = (import ../common.nix).targetPkgs;
+  targetPkgs = pkgs: ((import ../common.nix).targetPkgs pkgs) ++ [
+    pkgs.fxload
+    ise-fw
+    ise-usb-driver
+  ];
 
   name = "ise";
 

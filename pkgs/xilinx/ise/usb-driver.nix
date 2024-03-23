@@ -1,7 +1,8 @@
 { fetchgit, multiStdenv, stdenv, libusb, libftdi, ... }:
 
 multiStdenv.mkDerivation {
-  name = "ise-usb-driver";
+  pname = "ise-usb-driver";
+  version = "1030";
 
   buildInputs = [
     libusb
