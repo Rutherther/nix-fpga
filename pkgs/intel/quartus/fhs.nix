@@ -1,4 +1,4 @@
-{pkgs, lib, myLib }:
+{pkgs, lib, myLib, requireInstallDir ? false }:
 
 pkgs.buildFHSEnv {
   targetPkgs =
@@ -38,7 +38,7 @@ pkgs.buildFHSEnv {
 
   runScript = pkgs.writeScript "questasim-env" ''
     #!/usr/bin/env bash
-    ${myLib.runScriptPrefix "quartus" true}
+    ${myLib.runScriptPrefix "quartus" requireInstallDir}
     if [[ ! -z $INSTALL_DIR ]]; then
       export PATH=$INSTALL_DIR/quartus/bin:$PATH
     fi

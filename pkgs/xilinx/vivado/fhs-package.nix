@@ -3,7 +3,7 @@
 myLib.finalPkgGenerator.override {
   mainProgram = "vivado";
 
-  fhsEnv = pkgs.callPackage ./fhs.nix {  inherit myLib; };
+  fhsEnv = pkgs.callPackage ./fhs.nix { inherit myLib; requireInstallDir = true; };
 
   executables = [
     # From Vivado bin folder

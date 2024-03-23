@@ -3,7 +3,7 @@
 myLib.finalPkgGenerator.override {
   mainProgram = "vsim";
 
-  fhsEnv = pkgs.callPackage ./fhs.nix {  inherit myLib licenseInterface; };
+  fhsEnv = pkgs.callPackage ./fhs.nix { inherit myLib licenseInterface; requireInstallDir = true; };
 
   executables = [
     "crd2bin" "dumplog64" "flps_util" "hdloffice" "hm_entity" "jobspy" "mc2com"

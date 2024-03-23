@@ -1,4 +1,4 @@
-{ pkgs, myLib }:
+{ pkgs, myLib, requireInstallDir ? false, ... }:
 
 pkgs.buildFHSEnv {
   targetPkgs = (import ../common.nix).targetPkgs;
@@ -6,7 +6,7 @@ pkgs.buildFHSEnv {
   name = "vivado";
 
   runScript = ''
-    ${myLib.runScriptPrefix "vivado" false}
+    ${myLib.runScriptPrefix "vivado" requireInstallDir}
     if [[ ! -z $INSTALL_DIR ]]; then
       source $INSTALL_DIR/settings64.sh $INSTALL_DIR
     fi

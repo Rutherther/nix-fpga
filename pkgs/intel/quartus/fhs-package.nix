@@ -3,7 +3,7 @@
 myLib.finalPkgGenerator.override {
   mainProgram = "quartus";
 
-  fhsEnv = pkgs.callPackage ./fhs.nix {  inherit myLib; };
+  fhsEnv = pkgs.callPackage ./fhs.nix { inherit myLib; requireInstallDir = true; };
 
   executables = [
     "clearbox"

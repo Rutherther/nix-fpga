@@ -1,4 +1,4 @@
-{pkgs, lib, myLib, licenseInterface ? "" }:
+{pkgs, lib, myLib, requireInstallDir ? false, licenseInterface ? "" }:
 
 let
   bypassNetwork = licenseInterface == true || (licenseInterface != "");
@@ -8,6 +8,8 @@ in pkgs.buildFHSEnv {
   targetPkgs =
   pkgs: with pkgs; [
     stdenv.cc.cc.lib
+    ncurses.lib
+    libuuid
     zlib
     glib
     libxcrypt-legacy
@@ -48,7 +50,7 @@ in pkgs.buildFHSEnv {
 
   runScript = ''
     #!/usr/bin/env bash
-    ${myLib.runScriptPrefix "questa" true}
+    ${myLib.runScriptPrefix "questa" requireInstallDir}
     if [[ ! -z $INSTALL_DIR ]]; then
       export PATH=$INSTALL_DIR/bin:$PATH
     fi

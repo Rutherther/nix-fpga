@@ -3,7 +3,7 @@
 myLib.finalPkgGenerator.override {
   mainProgram = "ise";
 
-  fhsEnv = pkgs.callPackage ./fhs.nix {  inherit myLib ise-fw; };
+  fhsEnv = pkgs.callPackage ./fhs.nix { inherit myLib ise-fw; requireInstallDir = true; };
 
   executables = [
     # TODO

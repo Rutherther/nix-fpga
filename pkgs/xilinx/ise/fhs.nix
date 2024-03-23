@@ -1,4 +1,4 @@
-{ pkgs, myLib, ise-fw, ... }:
+{ pkgs, myLib, ise-fw, requireInstallDir ? false, ... }:
 
 pkgs.buildFHSEnv {
   targetPkgs = pkgs: ((import ../common.nix).targetPkgs pkgs) ++ [
@@ -8,7 +8,7 @@ pkgs.buildFHSEnv {
   name = "ise";
 
   runScript = ''
-    ${myLib.runScriptPrefix "ise" false}
+    ${myLib.runScriptPrefix "ise" requireInstallDir}
     if [[ ! -z $INSTALL_DIR ]]; then
       source $INSTALL_DIR/settings64.sh "$INSTALL_DIR"
     fi
