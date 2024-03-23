@@ -1,9 +1,9 @@
-{ pkgs, myLib, ise-fw, ... }:
+{ pkgs, myLib, ise-fw, ise-usb-driver, ... }:
 
 myLib.finalPkgGenerator.override {
   mainProgram = "ise";
 
-  fhsEnv = pkgs.callPackage ./fhs.nix { inherit myLib ise-fw; requireInstallDir = true; };
+  fhsEnv = pkgs.callPackage ./fhs.nix { inherit myLib ise-fw ise-usb-driver; requireInstallDir = true; };
 
   executables = [
     # TODO

@@ -1,9 +1,7 @@
-{ pkgs, myLib, ise-fw, requireInstallDir ? false, ... }:
+{ pkgs, myLib, ise-usb-driver, requireInstallDir ? false, ... }:
 
 pkgs.buildFHSEnv {
-  targetPkgs = pkgs: ((import ../common.nix).targetPkgs pkgs) ++ [
-    ise-fw
-  ];
+  targetPkgs = (import ../common.nix).targetPkgs;
 
   name = "ise";
 
@@ -13,6 +11,7 @@ pkgs.buildFHSEnv {
       source $INSTALL_DIR/settings64.sh "$INSTALL_DIR"
     fi
     export LD_LIBRARY_PATH=/lib:$LD_LIBRARY_PATH
+    export LD_PRELOAD=${ise-usb-driver}/lib/libusb-driver.so
     exec "$@"
   '';
 

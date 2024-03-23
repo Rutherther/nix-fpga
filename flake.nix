@@ -27,17 +27,18 @@
 
         ise-shell = pkgs.callPackage ./pkgs/xilinx/ise/fhs-shell.nix {
           inherit myLib;
-          ise-fw = self.packages.${system}.ise-fw;
+          ise-usb-driver = self.packages.${system}.ise-usb-driver;
         };
         ise = pkgs.callPackage ./pkgs/xilinx/ise/fhs-package.nix {
           inherit myLib;
-          ise-fw = self.packages.${system}.ise-fw;
+          ise-usb-driver = self.packages.${system}.ise-usb-driver;
         };
         ise-udev-rules = pkgs.callPackage ./pkgs/xilinx/ise/udev.nix {
           inherit myLib;
           ise-fw = self.packages.${system}.ise-fw;
         };
         ise-fw = pkgs.callPackage ./pkgs/xilinx/ise/fw.nix { inherit myLib; };
+        ise-usb-driver = pkgs.callPackage ./pkgs/xilinx/ise/usb-driver.nix {};
       };
     };
 }
