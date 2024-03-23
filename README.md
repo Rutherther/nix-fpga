@@ -37,6 +37,11 @@ To run the shell, you would follow what was done for the installation,
 `nix run github:Rutherther/nix-fpga#quartus-shell`. All vendor scripts will be
 sourced, bins added to `$PATH`, so the software may be ran directly.
 
+The main package also usually has more executables inside of its binary folder,
+these are all wrapper scripts that call the FHS environment. If you want to use these,
+you would typically add the package to your path in your shell and that will add
+all executables to your `$PATH`.
+
 ## Udev rules
 If you want to flash the FPGA, you will need udev rules installed.
 These cannot be installed the same way as on other Linux systems via
