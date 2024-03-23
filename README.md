@@ -96,10 +96,7 @@ export LM_LICENSE_FILE=/path/to/my/license.dat
 ```
 
 ### ISE
-I was not able to get the Platform Cable working with ISE. I ended up
-going into Vivado, where it seems even older models can be flashed.
-So I do synthesis, routing, bitfile generation in ISE, and then flash
-via Vivado.
+Working with Platform Cable II. Hopefully should work also with other cables.
 
 ``` sh
 > cat ~/.config/ise/nix.sh
@@ -107,6 +104,7 @@ INSTALL_DIR=/opt/Xilinx/ISE/14.7/ISE_DS
 ```
 
 ### Vivado
+Working with Digilent board.
 
 ``` sh
 > cat ~/.config/vivado/nix.sh
