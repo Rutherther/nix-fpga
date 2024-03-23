@@ -13,6 +13,8 @@
 
     in {
       packages.${system} = {
+        diamond-shell = pkgs.callPackage ./pkgs/lattice/diamond/fhs-shell.nix { inherit myLib; };
+        diamond = pkgs.callPackage ./pkgs/lattice/diamond/fhs-package.nix { inherit myLib; };
 
         questa-shell = pkgs.callPackage ./pkgs/questa/fhs-shell.nix { inherit myLib; };
         questa = pkgs.callPackage ./pkgs/questa/fhs-package.nix { inherit myLib; };
