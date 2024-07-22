@@ -43,6 +43,7 @@ pkgs.buildFHSEnv {
       export PATH=$INSTALL_DIR/quartus/bin:$PATH
     fi
     export LD_LIBRARY_PATH=/lib:$LD_LIBRARY_PATH
+    unset QT_QPA_PLATFORM # tends to crash on wayland with QT_QPA_PLATFORM=wayland, remove that variable, if set
     exec "$@"
   '';
 
