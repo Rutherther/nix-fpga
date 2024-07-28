@@ -8,7 +8,7 @@ in pkgs.buildFHSEnv {
   targetPkgs =
   pkgs: with pkgs; [
     stdenv.cc.cc.lib
-    ncurses.lib
+    ncurses
     libuuid
     zlib
     glib
